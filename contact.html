@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Contact · Autonova Group</title>
+<meta name="description" content="Contacter Autonova Group : téléphone, WhatsApp, adresse, horaires, ou demande de rappel.">
+<!-- Site en préparation : à retirer à la mise en ligne définitive -->
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1b344a">
+<link rel="icon" href="assets/favicon.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Archivo:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/styles.css">
+<script src="assets/config.js" defer></script>
+<script src="assets/site.js" defer></script>
+</head>
+<body>
+<a class="visually-hidden" href="#contenu">Aller au contenu</a>
+<div class="draft-banner">Site en préparation : textes et photos à venir.</div>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="topbar-group"><span>Lundi au samedi, 8 h – 18 h</span><span class="hide-tablet" data-fill="address"></span></div>
+    <div class="topbar-group"><a data-link="tel" data-fill="phone"></a><a class="hide-tablet" data-link="whatsapp">WhatsApp</a><a class="client-link" data-link="app">Espace client My Autonova</a></div>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Autonova Group, accueil"><img src="assets/logo-autonova-group.png" alt="Autonova Group" width="187" height="66"></a>
+    <nav class="main-nav" id="menu" aria-label="Menu principal">
+      <a href="index.html">Accueil</a>
+      <a href="garage.html">Le garage</a>
+      <a href="prestations.html">Prestations et tarifs</a>
+      <a href="recrutement.html">Recrutement</a>
+      <a href="contact.html" aria-current="page">Contact</a>
+      <div class="nav-extra"><a class="btn" href="contact.html">Être rappelé</a><a data-link="tel">Appeler</a><a data-link="whatsapp">WhatsApp</a><a data-link="app">Espace client My Autonova</a></div>
+    </nav>
+    <div class="header-actions">
+      <a class="btn" href="contact.html">Être rappelé</a>
+      <button class="menu-toggle" type="button" aria-controls="menu" aria-expanded="false" aria-label="Ouvrir le menu">
+        <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        <span class="label">Menu</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="contenu">
+  <div class="page-title">
+    <div class="wrap">
+      <nav class="crumb" aria-label="Fil d'Ariane"><a href="index.html">Accueil</a> › <span>Contact</span></nav>
+      <h1>Contact</h1>
+      <p class="lead">Appelez-nous, écrivez-nous sur WhatsApp, ou laissez vos coordonnées : nous vous rappelons dans la journée ouvrée.</p>
+      <div class="contact-quick"><a class="btn-line" data-link="tel">Appeler</a><a class="btn-line" data-link="whatsapp">WhatsApp</a></div>
+    </div>
+  </div>
+
+  <div class="wrap section with-aside">
+    <section class="card form-card" aria-labelledby="rappel-titre">
+      <h2 id="rappel-titre" class="h2" style="font-size: 26px">Être recontacté</h2>
+      <div class="tabs" role="tablist" aria-label="Type de demande">
+        <button type="button" role="tab" id="tab-client" data-tab="client" aria-controls="panel-client" aria-selected="true">Je suis client<span class="long"> : mon véhicule</span></button>
+        <button type="button" role="tab" id="tab-candidat" data-tab="candidat" aria-controls="panel-candidat" aria-selected="false"><span class="long">Je veux rejoindre l'équipe</span><span class="short-label">Recrutement</span></button>
+      </div>
+
+      <div id="panel-client" role="tabpanel" aria-labelledby="tab-client">
+        <form class="form-grid" data-kind="CLIENT" data-success="client-ok">
+          <div class="honeypot" aria-hidden="true"><label for="c-website">Ne pas remplir</label><input id="c-website" name="website" tabindex="-1" autocomplete="off"></div>
+          <label class="field" for="c-name">Nom et prénom *<input id="c-name" name="name" required autocomplete="name"></label>
+          <label class="field" for="c-phone">Téléphone *<input id="c-phone" name="phone" type="tel" inputmode="tel" required autocomplete="tel" placeholder="07 07 07 07 07"></label>
+          <label class="field" for="c-vehicle">Véhicule (marque et modèle) *<input id="c-vehicle" name="vehicle" required placeholder="Toyota Corolla"></label>
+          <label class="field" for="c-need">Votre besoin *<select id="c-need" name="need" required><option value="ENTRETIEN">Entretien, vidange</option><option value="REPARATION">Réparation</option><option value="DIAGNOSTIC">Diagnostic, voyant allumé</option><option value="CARROSSERIE">Carrosserie, peinture</option><option value="AUTRE">Autre</option></select></label>
+          <label class="field" for="c-email">E-mail (facultatif)<input id="c-email" name="email" type="email" autocomplete="email"></label>
+          <label class="field" for="c-date">Date souhaitée (facultatif)<input id="c-date" name="desiredDate" type="date"></label>
+          <label class="field full" for="c-message">Message (facultatif)<textarea id="c-message" name="message" rows="3" maxlength="1000" placeholder="Bruit au freinage depuis une semaine…"></textarea></label>
+          <label class="consent full" for="c-consent"><input id="c-consent" name="consent" type="checkbox" required><span>J'accepte qu'Autonova Group utilise ces informations pour me recontacter. <a href="confidentialite.html">Politique de confidentialité</a></span></label>
+          <p class="form-error full" role="alert" hidden></p>
+          <div class="form-actions full"><button class="btn btn-lg" type="submit">Être rappelé</button><span class="muted" style="font-size: 13px">* champs obligatoires</span></div>
+        </form>
+        <div class="form-success" id="client-ok" tabindex="-1" role="status" hidden>
+          <strong>Demande envoyée</strong>
+          <span>Autonova Group vous rappelle au numéro indiqué pour convenir de la prise en charge de votre véhicule.</span>
+          <button type="button" data-again>Faire une autre demande</button>
+        </div>
+      </div>
+
+      <div id="panel-candidat" role="tabpanel" aria-labelledby="tab-candidat" hidden>
+      <form class="form-grid" data-kind="CANDIDATE" data-success="k-ok">
+        <div class="honeypot" aria-hidden="true"><label for="k-website">Ne pas remplir</label><input id="k-website" name="website" tabindex="-1" autocomplete="off"></div>
+        <label class="field" for="k-name">Nom et prénom *<input id="k-name" name="name" required autocomplete="name"></label>
+        <label class="field" for="k-phone">Téléphone *<input id="k-phone" name="phone" type="tel" inputmode="tel" required autocomplete="tel" placeholder="07 07 07 07 07"></label>
+        <label class="field" for="k-position">Poste visé *<select id="k-position" name="position" required><option value="MECANICIEN">Mécanicien</option><option value="ELECTRICIEN">Électricien auto</option><option value="CARROSSIER">Carrossier peintre</option><option value="SECRETARIAT">Accueil, secrétariat</option><option value="AUTRE">Autre</option></select></label>
+        <label class="field" for="k-experience">Expérience *<select id="k-experience" name="experience" required><option value="DEBUTANT">Débutant ou apprenti</option><option value="MOINS_3">Moins de 3 ans</option><option value="3_10">3 à 10 ans</option><option value="PLUS_10">Plus de 10 ans</option></select></label>
+        <label class="field full" for="k-email">E-mail (facultatif)<input id="k-email" name="email" type="email" autocomplete="email"></label>
+        <label class="field full" for="k-message">Présentez-vous en quelques lignes (facultatif)<textarea id="k-message" name="message" rows="4" maxlength="2000" placeholder="Diplômes, garages précédents, spécialités…"></textarea></label>
+        <p class="note full">Votre CV vous sera demandé par WhatsApp lors de notre appel.</p>
+        <label class="consent full" for="k-consent"><input id="k-consent" name="consent" type="checkbox" required><span>J'accepte qu'Autonova Group conserve ma candidature deux ans au plus pour me recontacter. <a href="confidentialite.html">Politique de confidentialité</a></span></label>
+        <p class="form-error full" role="alert" hidden></p>
+        <div class="form-actions full"><button class="btn btn-lg" type="submit">Envoyer ma candidature</button><span class="muted" style="font-size: 13px">* champs obligatoires</span></div>
+      </form>
+      <div class="form-success" id="k-ok" tabindex="-1" role="status" hidden>
+        <strong>Candidature envoyée</strong>
+        <span>Merci. Autonova Group étudie votre candidature et vous rappelle si un poste correspond à votre profil.</span>
+        <button type="button" data-again>Envoyer une autre candidature</button>
+      </div>
+
+      </div>
+    </section>
+
+    <aside class="contact-aside">
+      <div class="card" style="padding: 24px; display: flex; flex-direction: column; gap: 14px">
+        <h2 style="font-size: 20px">Coordonnées</h2>
+        <dl class="coords">
+          <dt>Adresse</dt><dd data-fill="address"></dd>
+          <dt>Téléphone</dt><dd><a data-link="tel" data-fill="phone"></a></dd>
+          <dt>WhatsApp</dt><dd><a data-link="whatsapp" data-fill="whatsapp"></a></dd>
+          <dt>E-mail</dt><dd><a data-link="mail" data-fill="email"></a></dd>
+          <dt>Horaires</dt><dd>Lundi au samedi, 8 h – 18 h<br>Fermé le dimanche</dd>
+        </dl>
+      </div>
+      <div class="card" style="overflow: hidden">
+        <div class="photo" style="height: 240px; border-radius: 0" role="img" aria-label="Plan d'accès (à venir)" data-label="[Plan d'accès]"></div>
+        <div style="padding: 14px 20px"><a data-link="map" style="font-weight: 700">Ouvrir l'itinéraire</a></div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand"><img src="assets/logo-autonova-group.png" alt="Autonova Group" width="164" height="58"><span>Garage automobile à Abidjan.</span></div>
+    <nav class="footer-sitemap" aria-label="Plan du site"><strong>Plan du site</strong><a href="index.html">Accueil</a><a href="garage.html">Le garage</a><a href="prestations.html">Prestations et tarifs</a><a href="recrutement.html">Recrutement</a><a href="contact.html">Contact</a></nav>
+    <div class="footer-hours"><strong>Horaires</strong><span>Lundi au samedi : 8 h – 18 h</span><span>Dimanche : fermé</span></div>
+    <div><strong>Contact</strong><span data-fill="address"></span><a data-link="tel" data-fill="phone"></a><a data-link="mail" data-fill="email"></a></div>
+  </div>
+  <div class="wrap footer-bottom"><span>© Autonova Group</span><span><a href="mentions-legales.html">Mentions légales</a><a href="confidentialite.html">Politique de confidentialité</a></span></div>
+</footer>
+
+<nav class="action-bar" aria-label="Actions rapides">
+  <a data-link="tel"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Appeler</a>
+  <a data-link="whatsapp"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 21l2.1-5.6A8.4 8.4 0 1 1 21 11.5z"/></svg>WhatsApp</a>
+  <a class="primary" href="contact.html"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18v14H3z"/><path d="m3 7 9 6 9-6"/></svg>Être rappelé</a>
+</nav>
+</body>
+</html>
