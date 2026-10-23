@@ -14,6 +14,8 @@ Dépôt indépendant de l'appli (dépôt `Mon-Garage-Auto`) : le seul lien est l
 
 **Rubriques masquées** : l'interrupteur « Afficher sur le site » de l'appli retire une rubrique du site (champ `hidden` du contenu, voir `show` dans `build.mjs`).
 
+**Mesure d'audience** (BACKLOG 55) : `assets/site.js` envoie à l'appli chaque page vue et les clics utiles (appeler, WhatsApp, itinéraire, e-mail, espace client, formulaires), sans cookie ni stockage dans le navigateur, et rien si le visiteur a activé « Do Not Track » ou « Global Privacy Control ». Les chiffres se lisent dans l'appli, « Mon site internet » › Audience. Les liens partagés peuvent porter `?utm_source=…&utm_campaign=…` (l'appli fabrique ces liens).
+
 **Contenus en ligne** : la construction écrit aussi `dist/contenus.json` (les textes réellement affichés), que l'appli lit pour son aperçu.
 
 Le bandeau « Site en préparation » et la non-indexation par les moteurs de recherche restent tant qu'un texte entre crochets (« [Prénom Nom] ») reste à compléter. Si l'appli est injoignable pendant la construction, celle-ci échoue et le site en ligne reste inchangé.

@@ -1,9 +1,33 @@
-/* Site vitrine d'Autonova Group : menu, coordonnées, horaires du jour et
-   envoi du formulaire « Être recontacté » à l'appli (BACKLOG 53, EPIC-15). */
+/* Site vitrine d'Autonova Group : menu, coordonnées, horaires du jour,
+   envoi du formulaire « Être recontacté » à l'appli (BACKLOG 53, EPIC-15) et
+   mesure d'audience sans cookie (BACKLOG 55). */
 (function () {
   "use strict";
   var config = window.SITE_CONFIG || {};
   var TO_FILL = "[à compléter]";
+
+  /* ---------- Mesure d'audience (BACKLOG 55) ----------
+     Page vue et clics utiles envoyés à l'appli du garage. Ni cookie ni
+     stockage dans le navigateur ; rien n'est envoyé si le visiteur a
+     demandé à ne pas être suivi (« Do Not Track », « Global Privacy
+     Control »). */
+  var optOut = navigator.doNotTrack === "1" || window.doNotTrack === "1" || navigator.globalPrivacyControl === true;
+  function measure(kind, action) {
+    if (optOut || !config.apiUrl || !config.garageSlug || location.protocol === "file:") return;
+    var params = new URLSearchParams(location.search);
+    var event = { kind: kind, page: location.pathname };
+    if (action) event.action = action;
+    if (kind === "view" && document.referrer) event.referrer = document.referrer.slice(0, 500);
+    if (params.get("utm_source")) event.utmSource = params.get("utm_source").slice(0, 60);
+    if (params.get("utm_campaign")) event.utmCampaign = params.get("utm_campaign").slice(0, 60);
+    var url = config.apiUrl.replace(/\/$/, "") + "/api/public/garages/" + encodeURIComponent(config.garageSlug) + "/events";
+    var body = JSON.stringify(event);
+    try {
+      if (navigator.sendBeacon && navigator.sendBeacon(url, body)) return;
+      fetch(url, { method: "POST", body: body, keepalive: true, mode: "cors" }).catch(function () {});
+    } catch (e) { /* la mesure ne doit jamais gêner la visite */ }
+  }
+  measure("view");
 
   /* ---------- Menu (tablette et téléphone) ---------- */
   var toggle = document.querySelector(".menu-toggle");
@@ -45,6 +69,8 @@
     if (el.getAttribute("data-link") === "whatsapp" || el.getAttribute("data-link") === "map" || el.getAttribute("data-link") === "app") {
       if (href) { el.setAttribute("target", "_blank"); el.setAttribute("rel", "noopener"); }
     }
+    var action = { tel: "call", whatsapp: "whatsapp", mail: "email", map: "map", app: "app" }[el.getAttribute("data-link")];
+    if (href && action) el.addEventListener("click", function () { measure("action", action); });
   });
 
   /* ---------- Ouvert / fermé (Abidjan = UTC toute l'année) ---------- */
@@ -109,6 +135,13 @@
   }
 
   document.querySelectorAll("form[data-kind]").forEach(function (form) {
+    var prefix = form.getAttribute("data-kind") === "CANDIDATE" ? "jobs_form_" : "contact_form_";
+    var started = false;
+    form.addEventListener("focusin", function () {
+      if (started) return;
+      started = true;
+      measure("action", prefix + "open");
+    });
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       clearErrors(form);
@@ -137,6 +170,7 @@
         })
         .then(function (r) {
           if (r.ok) {
+            measure("action", prefix + "sent");
             var success = document.getElementById(form.getAttribute("data-success"));
             form.hidden = true;
             if (success) { success.hidden = false; success.focus(); }
