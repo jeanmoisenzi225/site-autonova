@@ -2,8 +2,13 @@
 // « Mon site internet »), télécharge les photos, puis fabrique les pages
 // dans dist/. Aucune dépendance : Node 20 ou plus.
 //
-//   node build.mjs            contenus publiés (repli sur l'exemple si rien n'est encore publié)
-//   node build.mjs --exemple  contenus d'exemple (content.example.json), sans appel réseau
+//   node build.mjs            contenus publiés, posés sur les contenus du site
+//   node build.mjs --exemple  contenus du site seuls (content.example.json), sans appel réseau
+//
+// Règle (décision du 2026-10-23) : les textes du site (content.example.json)
+// sont la base. Ce qui est publié depuis l'appli ne remplace que les champs
+// remplis : un texte vide, une photo absente ou une liste vide dans l'appli
+// laissent le contenu du site tel quel.
 import { readFile, writeFile, mkdir, rm, cp, readdir } from "node:fs/promises";
 import path from "node:path";
 import vm from "node:vm";
@@ -41,7 +46,27 @@ async function loadSite() {
     return { ...example, source: "exemple" };
   }
   if (!res.ok) throw new Error(`Réponse inattendue de l'appli (${res.status}) : construction annulée.`);
-  return { ...(await res.json()), source: "appli" };
+  const published = await res.json();
+  return { ...published, content: overlay(example.content, published.content), source: "appli" };
+}
+
+// Pose les champs remplis de `published` sur `base`. Texte vide, null, false
+// ou liste vide : la base est gardée. Une liste remplie remplace la liste
+// entière (équipe, prestations, actualités, photos…).
+function overlay(base, published) {
+  if (Array.isArray(base) || Array.isArray(published)) {
+    return Array.isArray(published) && published.length ? published : base;
+  }
+  if (base && typeof base === "object") {
+    const out = { ...base };
+    for (const key of Object.keys(published && typeof published === "object" ? published : {})) {
+      out[key] = key in base ? overlay(base[key], published[key]) : published[key];
+    }
+    return out;
+  }
+  if (typeof published === "string") return published.trim() ? published : base;
+  if (published === null || published === undefined || published === false) return base;
+  return published;
 }
 
 /* ---------- Mini moteur de modèles (syntaxe Mustache) ----------
@@ -173,6 +198,9 @@ function viewModel(site, photosOk) {
 /* ---------- Construction ---------- */
 const site = await loadSite();
 const content = site.content;
+// Bandeau « Site en préparation » et non-indexation tant qu'il reste des
+// textes à compléter entre crochets (ex. « [Prénom Nom] »).
+const stillDraft = /\[[^\]\n]{2,}\]/.test(JSON.stringify(content));
 const photoIds = [
   ...content.home.heroPhotos, ...content.home.welcomePhotos, content.garage.historyPhoto,
   ...content.garage.team.map((t) => t.photo), ...content.garage.gallery, ...content.services.categories.map((c) => c.photo),
@@ -203,7 +231,7 @@ const PAGES = {
 for (const [file, meta] of Object.entries(PAGES)) {
   let template = await readFile(path.join(SRC, file), "utf8");
   template = template.replace(/\{\{>\s*([\w-]+)\s*\}\}/g, (_, name) => parts[name] ?? "");
-  const page = { ...meta, nav: { [meta.nav]: true }, draft: site.source === "exemple" };
+  const page = { ...meta, nav: { [meta.nav]: true }, draft: stillDraft };
   await writeFile(path.join(DIST, file), render(template, [view, { page }]));
 }
 console.log(`Site construit dans dist/ (${Object.keys(PAGES).length} pages, ${photosOk.size} photos, contenus : ${site.source}).`);

@@ -10,7 +10,9 @@ Dépôt indépendant de l'appli (dépôt `Mon-Garage-Auto`) : le seul lien est l
 2. L'appli relance la construction du site (lien de mise à jour enregistré dans « Mon site internet » › « Photos et réglages »).
 3. `build.mjs` lit la version publiée (`GET /api/public/garages/<slug>/site`), télécharge les photos, remplit les modèles de `src/` et écrit le site dans `dist/`.
 
-Tant que rien n'est publié, le site est construit avec `content.example.json`, avec le bandeau « Site en préparation » et la non-indexation par les moteurs de recherche. Si l'appli est injoignable pendant la construction, celle-ci échoue et le site en ligne reste inchangé.
+**Règle de fusion (décision du 2026-10-23)** : `content.example.json` contient les textes du site, qui servent de base. Ce qui est publié depuis l'appli ne remplace que les champs remplis ; un texte vide, une photo absente ou une liste vide dans l'appli laissent le contenu du site tel quel. Une liste remplie dans l'appli (équipe, prestations, postes, actualités, photos) remplace la liste entière du site.
+
+Le bandeau « Site en préparation » et la non-indexation par les moteurs de recherche restent tant qu'un texte entre crochets (« [Prénom Nom] ») reste à compléter. Si l'appli est injoignable pendant la construction, celle-ci échoue et le site en ligne reste inchangé.
 
 ## Fichiers
 
@@ -22,7 +24,7 @@ Tant que rien n'est publié, le site est construit avec `content.example.json`, 
 | `build.mjs` | Construction (Node 20 ou plus, sans dépendance) |
 | `content.example.json` | Contenus d'exemple |
 
-Syntaxe des modèles (type Mustache) : `{{champ}}` texte échappé ; `{{#liste}}…{{/liste}}` répétition ou condition ; `{{^champ}}…{{/champ}}` si vide ; `{{> partie}}` morceau de `src/parts/`. Une rubrique laissée vide dans l'appli n'apparaît pas.
+Syntaxe des modèles (type Mustache) : `{{champ}}` texte échappé ; `{{#liste}}…{{/liste}}` répétition ou condition ; `{{^champ}}…{{/champ}}` si vide ; `{{> partie}}` morceau de `src/parts/`. Un champ laissé vide dans l'appli garde le texte du site.
 
 ## Essayer en local
 
