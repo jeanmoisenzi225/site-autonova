@@ -161,6 +161,7 @@ function viewModel(site, photosOk) {
       const [, m, d] = (n.date || "").split("-");
       return { ...n, day: d ? String(Number(d)) : "", month: m ? MONTHS[Number(m) - 1] : "", textParagraphs: paragraphs(n.text) };
     });
+  const hidden = c.hidden || {};
   const r = site.reviews || {};
   const reviewItems = (r.items || []).filter((it) => it.comment).map((it) => ({ ...it, stars: "★".repeat(it.rating) + "☆".repeat(5 - it.rating) }));
   return {
@@ -189,7 +190,19 @@ function viewModel(site, photosOk) {
       perks: (c.jobs.perks || []).filter((p) => p.title),
     },
     news,
-    reviews: r.show && (r.count || reviewItems.length)
+    // Rubriques affichées : masquées depuis l'appli (« Afficher sur le site »).
+    show: {
+      homeWelcome: !hidden.homeWelcome,
+      homeServices: !hidden.homeServices && categories.length > 0,
+      homeNews: !hidden.homeNews && news.length > 0,
+      garageHistory: !hidden.garageHistory && Boolean(c.garage.historyTitle),
+      garageTeam: !hidden.garageTeam,
+      garageWorkshop: !hidden.garageWorkshop,
+      garagePromises: !hidden.garagePromises,
+      jobsOpenings: !hidden.jobsOpenings,
+      jobsPerks: !hidden.jobsPerks,
+    },
+    reviews: !hidden.homeReviews && r.show && (r.count || reviewItems.length)
       ? { average: r.average != null ? String(r.average).replace(".", ",") : "", count: r.count, items: reviewItems }
       : null,
   };
@@ -234,4 +247,7 @@ for (const [file, meta] of Object.entries(PAGES)) {
   const page = { ...meta, nav: { [meta.nav]: true }, draft: stillDraft };
   await writeFile(path.join(DIST, file), render(template, [view, { page }]));
 }
+// Contenus actuellement en ligne, lus par l'écran « Mon site internet » de
+// l'appli (aperçu et texte actuel des champs laissés vides).
+await writeFile(path.join(DIST, "contenus.json"), JSON.stringify(content));
 console.log(`Site construit dans dist/ (${Object.keys(PAGES).length} pages, ${photosOk.size} photos, contenus : ${site.source}).`);

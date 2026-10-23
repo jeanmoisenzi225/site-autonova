@@ -35,11 +35,13 @@
   <section class="section">
     <div class="wrap with-aside">
       <div class="stack">
+        {{#show.homeWelcome}}
         {{#home.welcomeTitle}}<span class="eyebrow">Bienvenue</span>
         <h2 class="h2">{{home.welcomeTitle}}</h2>{{/home.welcomeTitle}}
         {{#home.welcomeParagraphs}}<p class="lead">{{text}}</p>{{/home.welcomeParagraphs}}
         {{#home.welcomePhotos.length}}<div class="grid-2 photo-pair">{{#home.welcomePhotos}}<img class="photo-img ratio-43" src="{{url}}" alt="{{alt}}" loading="lazy">{{/home.welcomePhotos}}</div>{{/home.welcomePhotos.length}}
         {{^home.welcomePhotos}}{{#page.draft}}<div class="grid-2 photo-pair"><div class="photo ratio-43" data-label="[Photo : accueil du garage]"></div><div class="photo ratio-43" data-label="[Photo : l'équipe]"></div></div>{{/page.draft}}{{/home.welcomePhotos}}
+        {{/show.homeWelcome}}
         <a class="more" href="garage.html">Découvrir le garage</a>
       </div>
       <aside class="home-aside">
@@ -61,7 +63,7 @@
     </div>
   </section>
 
-  {{#services.categories.length}}
+  {{#show.homeServices}}
   <section class="section section-white">
     <div class="wrap">
       <div class="section-head">
@@ -81,9 +83,9 @@
       </ul>
     </div>
   </section>
-  {{/services.categories.length}}
+  {{/show.homeServices}}
 
-  {{#news.length}}
+  {{#show.homeNews}}
   <section class="section">
     <div class="wrap with-aside">
       <div class="stack">
@@ -95,8 +97,8 @@
       {{#reviews}}{{> reviews}}{{/reviews}}
     </div>
   </section>
-  {{/news.length}}
-  {{^news}}{{#reviews}}<section class="section"><div class="wrap" style="max-width: 640px; margin: 0 auto">{{> reviews}}</div></section>{{/reviews}}{{/news}}
+  {{/show.homeNews}}
+  {{^show.homeNews}}{{#reviews}}<section class="section"><div class="wrap" style="max-width: 640px; margin: 0 auto">{{> reviews}}</div></section>{{/reviews}}{{/show.homeNews}}
 
   <section class="app-band" id="appli">
     <div class="wrap">

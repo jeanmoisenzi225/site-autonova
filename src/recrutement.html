@@ -12,15 +12,15 @@
 
   <div class="wrap section with-aside" style="align-items: start">
     <div class="stack" style="gap: 40px">
-      <section class="stack">
+      {{#show.jobsOpenings}}<section class="stack">
         <h2 class="h2">Postes ouverts</h2>
         {{#jobs.openings}}<article class="card job"><div><strong>{{title}}</strong>{{#tags.length}}<div class="tags">{{#tags}}<span class="tag">{{text}}</span>{{/tags}}</div>{{/tags.length}}{{#text}}<span style="font-size: 15px; color: var(--text)">{{text}}</span>{{/text}}</div><a class="btn-line" href="#candidature">Postuler</a></article>{{/jobs.openings}}
         <p class="muted" style="font-size: 14px">{{#jobs.openings.length}}Aucun poste ne vous correspond ? {{/jobs.openings.length}}La candidature spontanée est la bienvenue.</p>
-      </section>
-      {{#jobs.perks.length}}<section class="stack">
+      </section>{{/show.jobsOpenings}}
+      {{#show.jobsPerks}}{{#jobs.perks.length}}<section class="stack">
         <h2 class="h2">Pourquoi nous rejoindre</h2>
         <div class="grid-3">{{#jobs.perks}}<div class="card" style="padding: 18px"><strong style="color: var(--navy)">{{title}}</strong><br><span class="muted" style="font-size: 15px">{{text}}</span></div>{{/jobs.perks}}</div>
-      </section>{{/jobs.perks.length}}
+      </section>{{/jobs.perks.length}}{{/show.jobsPerks}}
     </div>
 
     <section class="card form-card" id="candidature" aria-labelledby="candidature-titre" style="scroll-margin-top: 110px">

@@ -12,6 +12,10 @@ Dépôt indépendant de l'appli (dépôt `Mon-Garage-Auto`) : le seul lien est l
 
 **Règle de fusion (décision du 2026-10-23)** : `content.example.json` contient les textes du site, qui servent de base. Ce qui est publié depuis l'appli ne remplace que les champs remplis ; un texte vide, une photo absente ou une liste vide dans l'appli laissent le contenu du site tel quel. Une liste remplie dans l'appli (équipe, prestations, postes, actualités, photos) remplace la liste entière du site.
 
+**Rubriques masquées** : l'interrupteur « Afficher sur le site » de l'appli retire une rubrique du site (champ `hidden` du contenu, voir `show` dans `build.mjs`).
+
+**Contenus en ligne** : la construction écrit aussi `dist/contenus.json` (les textes réellement affichés), que l'appli lit pour son aperçu.
+
 Le bandeau « Site en préparation » et la non-indexation par les moteurs de recherche restent tant qu'un texte entre crochets (« [Prénom Nom] ») reste à compléter. Si l'appli est injoignable pendant la construction, celle-ci échoue et le site en ligne reste inchangé.
 
 ## Fichiers
