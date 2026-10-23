@@ -1,6 +1,6 @@
 # Site vitrine d'Autonova Group
 
-Site statique (HTML, CSS, JavaScript, sans étape de compilation) qui présente le garage et relie son formulaire « Être recontacté » à l'appli My Autonova. BACKLOG 53, EPIC-15 (F-15.8).
+Site statique (HTML, CSS, JavaScript, sans étape de compilation ni ressource extérieure : polices et images sont dans `assets/`) qui présente le garage et relie son formulaire « Être recontacté » à l'appli My Autonova. BACKLOG 53, EPIC-15 (F-15.8).
 
 Dépôt indépendant de l'appli (dépôt `Mon-Garage-Auto`) : le seul lien est l'adresse de l'API et l'identifiant du garage, dans `assets/config.js`. Côté appli, voir BACKLOG 53 et l'épopée EPIC-15 du dépôt `Mon-Garage-Auto`.
 
