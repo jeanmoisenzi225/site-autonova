@@ -1,0 +1,110 @@
+{{> head}}
+{{> header}}
+
+<main id="contenu">
+  <section class="hero" aria-label="Présentation">
+    {{#home.heroPhoto}}<img class="photo photo-img" src="{{url}}" alt="{{alt}}">{{/home.heroPhoto}}
+    {{^home.heroPhoto}}<div class="photo photo-dark"{{#page.draft}} data-label="[Photo : l'atelier]"{{/page.draft}} aria-hidden="true"></div>{{/home.heroPhoto}}
+    <div class="wrap hero-inner">
+      <div class="hero-card">
+        {{#home.eyebrow}}<span class="eyebrow">{{home.eyebrow}}</span>{{/home.eyebrow}}
+        <h1>{{home.title}}</h1>
+        {{#home.intro}}<p>{{home.intro}}</p>{{/home.intro}}
+        <div class="hero-actions"><a class="btn" href="contact.html">Être rappelé</a><a class="btn-line" href="prestations.html">Prestations et tarifs</a></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="card open-status" data-open-status>
+      <span class="open-dot" aria-hidden="true"></span>
+      <span style="flex: 1"><span data-open-label><strong>Horaires</strong></span><br><span class="muted" style="font-size: 14px">Lundi au samedi, 8 h – 18 h</span></span>
+      <a data-link="map" style="font-weight: 700; font-size: 15px">Itinéraire</a>
+    </div>
+  </div>
+
+  <section class="quick" aria-label="Accès rapides">
+    <div class="wrap quick-grid">
+      <a class="quick-item" href="contact.html"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><div><strong>Demander un rappel</strong><span>Réponse dans la journée ouvrée</span></div></a>
+      <a class="quick-item" href="prestations.html"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z"/></svg><div><strong>Prestations et tarifs</strong><span>Durées et prix indicatifs</span></div></a>
+      <a class="quick-item" data-link="app"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg><div><strong>Suivre mon véhicule</strong><span>Espace client {{appName}}</span></div></a>
+      <a class="quick-item" href="recrutement.html"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg><div><strong>Nous rejoindre</strong><span>Postes et candidature</span></div></a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap with-aside">
+      <div class="stack">
+        {{#home.welcomeTitle}}<span class="eyebrow">Bienvenue</span>
+        <h2 class="h2">{{home.welcomeTitle}}</h2>{{/home.welcomeTitle}}
+        {{#home.welcomeParagraphs}}<p class="lead">{{text}}</p>{{/home.welcomeParagraphs}}
+        {{#home.welcomePhotos.length}}<div class="grid-2 photo-pair">{{#home.welcomePhotos}}<img class="photo-img ratio-43" src="{{url}}" alt="{{alt}}" loading="lazy">{{/home.welcomePhotos}}</div>{{/home.welcomePhotos.length}}
+        {{^home.welcomePhotos}}{{#page.draft}}<div class="grid-2 photo-pair"><div class="photo ratio-43" data-label="[Photo : accueil du garage]"></div><div class="photo ratio-43" data-label="[Photo : l'équipe]"></div></div>{{/page.draft}}{{/home.welcomePhotos}}
+        <a class="more" href="garage.html">Découvrir le garage</a>
+      </div>
+      <aside class="home-aside">
+        <div class="card home-hours" style="padding: 24px">
+          <h3 style="font-size: 20px; margin-bottom: 12px">Horaires d'ouverture</h3>
+          <table class="hours">
+            <tr><td>Lundi au vendredi</td><td>8 h – 18 h</td></tr>
+            <tr><td>Samedi</td><td>8 h – 18 h</td></tr>
+            <tr><td>Dimanche</td><td class="closed">Fermé</td></tr>
+          </table>
+        </div>
+        <div class="card" style="padding: 20px 24px; display: flex; flex-direction: column; gap: 6px">
+          <h3 style="font-size: 20px">Nous trouver</h3>
+          <span data-fill="address"></span>
+          <a data-link="tel" data-fill="phone" style="font-weight: 600; text-decoration: none"></a>
+          <a class="more" data-link="map" style="margin-top: 6px">Itinéraire</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  {{#services.categories.length}}
+  <section class="section section-white">
+    <div class="wrap">
+      <div class="section-head">
+        <div><span class="eyebrow">Prestations</span><h2 class="h2">Ce que nous faisons pour votre véhicule</h2></div>
+        <a class="more" href="prestations.html">Tous les tarifs</a>
+      </div>
+      <div class="grid-3 service-cards">
+        {{#services.categories}}
+        <a class="card service-card" href="prestations.html#{{id}}">
+          {{#photo}}<img class="photo-img" src="{{url}}" alt="{{alt}}" loading="lazy">{{/photo}}{{^photo}}<div class="photo"{{#page.draft}} data-label="[Photo]"{{/page.draft}}></div>{{/photo}}
+          <div class="body"><strong>{{name}}</strong>{{#summary}}<span>{{summary}}</span>{{/summary}}{{#firstPrice}}<span class="price">{{firstPrice}}</span>{{/firstPrice}}</div>
+        </a>
+        {{/services.categories}}
+      </div>
+      <ul class="card service-list">
+        {{#services.categories}}<li><a href="prestations.html#{{id}}"><span><strong>{{name}}</strong>{{#summary}}<span class="muted" style="font-size: 14px">{{summary}}</span>{{/summary}}</span>{{#firstPrice}}<span class="price">{{firstPrice}}</span>{{/firstPrice}}</a></li>{{/services.categories}}
+      </ul>
+    </div>
+  </section>
+  {{/services.categories.length}}
+
+  {{#news.length}}
+  <section class="section">
+    <div class="wrap with-aside">
+      <div class="stack">
+        <div class="stack" style="gap: 8px"><span class="eyebrow">Actualités du garage</span><h2 class="h2">À la une</h2></div>
+        {{#news}}
+        <article class="card news-item">{{#day}}<div class="news-date"><b>{{day}}</b><span>{{month}}</span></div>{{/day}}<div class="stack" style="gap: 4px"><strong style="color: var(--navy)">{{title}}</strong>{{#textParagraphs}}<span style="font-size: 15px; color: var(--text)">{{text}}</span>{{/textParagraphs}}</div></article>
+        {{/news}}
+      </div>
+      {{#reviews}}{{> reviews}}{{/reviews}}
+    </div>
+  </section>
+  {{/news.length}}
+  {{^news}}{{#reviews}}<section class="section"><div class="wrap" style="max-width: 640px; margin: 0 auto">{{> reviews}}</div></section>{{/reviews}}{{/news}}
+
+  <section class="app-band" id="appli">
+    <div class="wrap">
+      <img src="assets/my-autonova.png" alt="" width="88" height="88">
+      <div class="text"><strong>Déjà client ? Suivez votre véhicule avec {{appName}}</strong><span>Rendez-vous, étapes des travaux, devis et factures signés, paiement Wave, Orange Money, MTN ou Moov.</span></div>
+      <a class="btn" data-link="app">Ouvrir mon espace client</a>
+    </div>
+  </section>
+</main>
+
+{{> footer}}

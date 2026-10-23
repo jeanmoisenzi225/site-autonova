@@ -1,0 +1,40 @@
+{{> head}}
+{{> header}}
+
+<main id="contenu">
+  <div class="page-title">
+    <div class="wrap">
+      <nav class="crumb" aria-label="Fil d'Ariane"><a href="index.html">Accueil</a> › <span>Prestations et tarifs</span></nav>
+      <h1>Prestations et tarifs</h1>
+      {{#services.intro}}<p class="lead">{{services.intro}}</p>{{/services.intro}}
+    </div>
+  </div>
+
+  <div class="wrap section prices-layout">
+    <aside>
+      {{#services.categories.length}}<nav class="card side-nav" aria-label="Catégories">{{#services.categories}}<a href="#{{id}}">{{name}}</a>{{/services.categories}}</nav>{{/services.categories.length}}
+      <div class="card aside-cta">
+        <strong>Un doute sur ce qu'il faut faire ?</strong>
+        <span style="font-size: 15px; color: var(--text)">Décrivez le problème, nous vous rappelons pour vous conseiller.</span>
+        <a class="btn" href="contact.html" style="align-self: flex-start">Être rappelé</a>
+      </div>
+    </aside>
+
+    <div class="stack" style="gap: 40px">
+      {{#services.categories}}
+      <section class="category" id="{{id}}">
+        <div class="category-head"><h2>{{name}}</h2>{{#note}}<span class="muted" style="font-size: 14px">{{note}}</span>{{/note}}</div>
+        {{#rows.length}}<div class="card" style="overflow: hidden"><table class="price-table">
+          <thead><tr><th scope="col">Prestation</th><th scope="col">Durée indicative</th><th scope="col" class="num">Tarif</th></tr></thead>
+          <tbody>
+            {{#rows}}<tr><td class="name">{{name}}{{#detail}}<span class="detail">{{detail}}</span>{{/detail}}</td><td class="duration">{{duration}}</td><td class="num">{{price}}</td></tr>{{/rows}}
+          </tbody>
+        </table></div>{{/rows.length}}
+      </section>
+      {{/services.categories}}
+      {{^services.categories}}<p class="lead">Contactez-nous pour connaître nos prestations et nos tarifs.</p>{{/services.categories}}
+    </div>
+  </div>
+</main>
+
+{{> footer}}

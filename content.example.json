@@ -1,0 +1,77 @@
+{
+  "garage": { "name": "Autonova Group", "appName": "My Autonova", "slug": "autonova-group" },
+  "content": {
+    "contact": { "phone": "", "whatsapp": "", "email": "", "address": "", "mapUrl": "" },
+    "home": {
+      "eyebrow": "Garage automobile · Abidjan",
+      "title": "Entretien, mécanique et carrosserie pour toutes marques",
+      "intro": "Devis signé avant travaux et suivi de votre véhicule en direct dans l'application My Autonova.",
+      "heroPhotos": [],
+      "welcomeTitle": "Autonova Group, [une phrase sur le garage]",
+      "welcomeText": "[Présentation en trois ou quatre phrases : depuis quand le garage existe, ce qu'il fait le mieux, les marques qu'il entretient, sa façon de travailler.]\nChaque intervention commence par un devis que vous signez sur votre téléphone. Vous suivez ensuite les étapes des travaux, jusqu'à la remise du véhicule.",
+      "welcomePhotos": []
+    },
+    "garage": {
+      "intro": "[Une phrase d'introduction : qui est Autonova Group et où se trouve l'atelier.]",
+      "historyTitle": "[Titre : depuis [année] au service des automobilistes d'Abidjan]",
+      "historyText": "[Paragraphe 1 : la création du garage, son fondateur, ses débuts.]\n[Paragraphe 2 : son développement, ses spécialités, les clients qu'il sert.]",
+      "historyPhoto": null,
+      "figures": [
+        { "label": "Création", "value": "[année]" },
+        { "label": "Équipe", "value": "[N] personnes" },
+        { "label": "Postes de travail", "value": "[N]" }
+      ],
+      "team": [
+        { "name": "[Prénom Nom]", "role": "Gérant", "photo": null },
+        { "name": "[Prénom Nom]", "role": "Chef d'atelier", "photo": null },
+        { "name": "[Prénom Nom]", "role": "Mécanicien", "photo": null },
+        { "name": "[Prénom Nom]", "role": "Accueil et secrétariat", "photo": null }
+      ],
+      "equipment": ["[Ponts élévateurs : nombre]", "[Valise de diagnostic multimarque]", "[Station de climatisation]", "[Cabine de peinture]"],
+      "brands": "[Liste des marques prises en charge]",
+      "gallery": []
+    },
+    "services": {
+      "intro": "Tarifs indicatifs, main-d'œuvre comprise, pour un véhicule de tourisme. Le prix exact figure sur le devis, que vous signez avant tout travail.",
+      "categories": [
+        { "name": "Entretien", "summary": "Huile, filtres, niveaux et points de contrôle.", "note": "Rappel d'entretien envoyé par My Autonova", "photo": null, "rows": [
+          { "name": "Vidange et filtre à huile", "detail": "Huile adaptée au moteur, contrôle des niveaux", "duration": "1 h", "price": "[..] FCFA" },
+          { "name": "Révision complète", "detail": "Filtres huile, air, habitacle ; points de contrôle", "duration": "2 h", "price": "[..] FCFA" }
+        ] },
+        { "name": "Diagnostic", "summary": "Lecture des défauts à la valise, explication claire.", "note": "", "photo": null, "rows": [
+          { "name": "Diagnostic électronique", "detail": "Lecture des défauts à la valise, compte-rendu", "duration": "1 h", "price": "[..] FCFA" }
+        ] },
+        { "name": "Freinage", "summary": "Plaquettes, disques, liquide, essai routier.", "note": "Essai routier avant remise", "photo": null, "rows": [
+          { "name": "Plaquettes avant", "detail": "Pièces et main-d'œuvre", "duration": "1 h", "price": "[..] FCFA" },
+          { "name": "Disques et plaquettes avant", "detail": "Pièces et main-d'œuvre", "duration": "2 h", "price": "[..] FCFA" }
+        ] },
+        { "name": "Mécanique générale", "summary": "Moteur, embrayage, distribution, suspension.", "note": "Devis après diagnostic", "photo": null, "rows": [
+          { "name": "Kit de distribution", "detail": "Courroie, galets, pompe à eau selon modèle", "duration": "1 à 2 jours", "price": "Sur devis" },
+          { "name": "Embrayage", "detail": "Kit complet", "duration": "1 jour", "price": "Sur devis" }
+        ] },
+        { "name": "Climatisation", "summary": "Recharge, recherche de fuite, nettoyage.", "note": "", "photo": null, "rows": [
+          { "name": "Recharge de climatisation", "detail": "Contrôle de l'étanchéité du circuit", "duration": "1 h", "price": "[..] FCFA" }
+        ] },
+        { "name": "Carrosserie et peinture", "summary": "Débosselage et peinture, photos avant et après.", "note": "", "photo": null, "rows": [
+          { "name": "Peinture d'un élément", "detail": "Pare-chocs, portière, aile…", "duration": "1 à 3 jours", "price": "Sur devis" }
+        ] }
+      ]
+    },
+    "jobs": {
+      "intro": "Mécaniciens, électriciens, carrossiers ou personnel d'accueil : laissez vos coordonnées, nous vous rappelons dès qu'un poste correspond à votre profil.",
+      "openings": [
+        { "title": "Mécanicien automobile", "contract": "[CDI]", "level": "[3 ans d'expérience]", "text": "[Missions principales : entretien, diagnostic, réparations mécaniques.]" }
+      ],
+      "perks": [
+        { "title": "[Formation]", "text": "[Ce que le garage propose pour progresser.]" },
+        { "title": "Atelier sans papier", "text": "Réparations du jour, étapes et photos sur téléphone, dans My Autonova." }
+      ]
+    },
+    "news": [
+      { "date": "", "title": "[Fermeture exceptionnelle]", "text": "[Le garage sera fermé le … pour …]" }
+    ],
+    "reviews": { "show": false, "selectedIds": [] },
+    "footer": { "tagline": "Garage automobile à Abidjan." }
+  },
+  "reviews": { "show": false, "average": null, "count": 0, "items": [] }
+}

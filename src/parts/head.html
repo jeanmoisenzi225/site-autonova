@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{page.title}}</title>
+<meta name="description" content="{{page.description}}">
+{{#page.draft}}<meta name="robots" content="noindex">
+{{/page.draft}}<meta name="theme-color" content="#1b344a">
+<link rel="icon" href="assets/favicon.jpg">
+<link rel="preload" href="assets/fonts/archivo-variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="assets/styles.css">
+<script src="assets/config.js" defer></script>
+<script src="assets/site.js" defer></script>
+</head>
+<body>
+<a class="visually-hidden" href="#contenu">Aller au contenu</a>
+{{#page.draft}}<div class="draft-banner">Site en préparation : textes et photos à venir.</div>
+{{/page.draft}}

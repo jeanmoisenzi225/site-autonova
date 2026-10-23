@@ -1,0 +1,28 @@
+<div class="topbar">
+  <div class="wrap">
+    <div class="topbar-group"><span>Lundi au samedi, 8 h – 18 h</span><span class="hide-tablet" data-fill="address"></span></div>
+    <div class="topbar-group"><a data-link="tel" data-fill="phone"></a><a class="hide-tablet" data-link="whatsapp">WhatsApp</a><a class="client-link" data-link="app">Espace client {{appName}}</a></div>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="{{garageName}}, accueil"><img src="assets/logo-autonova-group.png" alt="{{garageName}}" width="187" height="66"></a>
+    <nav class="main-nav" id="menu" aria-label="Menu principal">
+      <a href="index.html"{{#page.nav.home}} aria-current="page"{{/page.nav.home}}>Accueil</a>
+      <a href="garage.html"{{#page.nav.garage}} aria-current="page"{{/page.nav.garage}}>Le garage</a>
+      <a href="prestations.html"{{#page.nav.services}} aria-current="page"{{/page.nav.services}}>Prestations et tarifs</a>
+      <a href="recrutement.html"{{#page.nav.jobs}} aria-current="page"{{/page.nav.jobs}}>Recrutement</a>
+      <a href="contact.html"{{#page.nav.contact}} aria-current="page"{{/page.nav.contact}}>Contact</a>
+      <div class="nav-extra"><a class="btn" href="contact.html">Être rappelé</a><a data-link="tel">Appeler</a><a data-link="whatsapp">WhatsApp</a><a data-link="app">Espace client {{appName}}</a></div>
+    </nav>
+    <div class="header-actions">
+      <a class="btn" href="contact.html">Être rappelé</a>
+      <button class="menu-toggle" type="button" aria-controls="menu" aria-expanded="false" aria-label="Ouvrir le menu">
+        <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        <span class="label">Menu</span>
+      </button>
+    </div>
+  </div>
+</header>

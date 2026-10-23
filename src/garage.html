@@ -1,0 +1,59 @@
+{{> head}}
+{{> header}}
+
+<main id="contenu">
+  <div class="page-title">
+    <div class="wrap">
+      <nav class="crumb" aria-label="Fil d'Ariane"><a href="index.html">Accueil</a> › <span>Le garage</span></nav>
+      <h1>Le garage</h1>
+      {{#garage.intro}}<p class="lead">{{garage.intro}}</p>{{/garage.intro}}
+    </div>
+  </div>
+
+  <div class="wrap section stack" style="gap: 56px">
+    {{#garage.historyTitle}}
+    <section class="grid-2" style="gap: 48px; align-items: start">
+      <div class="stack">
+        <span class="eyebrow">Notre histoire</span>
+        <h2 class="h2">{{garage.historyTitle}}</h2>
+        {{#garage.historyParagraphs}}<p class="lead">{{text}}</p>{{/garage.historyParagraphs}}
+        {{#garage.figures.length}}<dl class="figures">{{#garage.figures}}<div><dt>{{label}}</dt><dd>{{value}}</dd></div>{{/garage.figures}}</dl>{{/garage.figures.length}}
+      </div>
+      {{#garage.historyPhoto}}<img class="photo-img ratio-43" src="{{url}}" alt="{{alt}}">{{/garage.historyPhoto}}
+      {{^garage.historyPhoto}}{{#page.draft}}<div class="photo ratio-43" data-label="[Photo : façade du garage]"></div>{{/page.draft}}{{/garage.historyPhoto}}
+    </section>
+    {{/garage.historyTitle}}
+
+    {{#garage.team.length}}
+    <section class="stack">
+      <div class="stack" style="gap: 8px"><span class="eyebrow">L'équipe</span><h2 class="h2">Les personnes qui s'occupent de votre véhicule</h2></div>
+      <div class="grid-4">
+        {{#garage.team}}
+        <figure class="card person">{{#photo}}<img class="photo-img" src="{{url}}" alt="{{alt}}" loading="lazy">{{/photo}}{{^photo}}<div class="photo ratio-11"{{#page.draft}} data-label="[Photo]"{{/page.draft}}></div>{{/photo}}<figcaption><strong>{{name}}</strong><span class="muted" style="font-size: 14px">{{role}}</span></figcaption></figure>
+        {{/garage.team}}
+      </div>
+    </section>
+    {{/garage.team.length}}
+
+    <section class="with-aside atelier">
+      <div class="stack">
+        <span class="eyebrow">L'atelier</span>
+        <h2 class="h2">Équipements</h2>
+        {{#garage.equipment.length}}<ul class="checks">{{#garage.equipment}}<li>{{text}}</li>{{/garage.equipment}}</ul>{{/garage.equipment.length}}
+        {{#garage.brands}}<div class="card" style="padding: 18px 20px"><strong style="color: var(--navy)">Marques entretenues</strong><br><span class="muted" style="font-size: 15px">{{garage.brands}}</span></div>{{/garage.brands}}
+      </div>
+      <div class="gallery">
+        {{#garage.gallery}}<img class="photo-img {{#wide}}wide ratio-169{{/wide}}{{^wide}}ratio-11{{/wide}}" src="{{url}}" alt="{{alt}}" loading="lazy">{{/garage.gallery}}
+        {{^garage.gallery}}{{#page.draft}}<div class="photo ratio-169 wide" data-label="[Photo : l'atelier]"></div><div class="photo ratio-11" data-label="[Photo]"></div><div class="photo ratio-11" data-label="[Photo]"></div>{{/page.draft}}{{/garage.gallery}}
+      </div>
+    </section>
+
+    <section class="promise" aria-label="Nos engagements">
+      <div><strong>Devis signé avant travaux</strong><span>Le prix est connu et accepté avant que l'on touche au véhicule.</span></div>
+      <div><strong>Suivi en 8 étapes</strong><span>De la réception à la remise, chaque étape s'affiche dans {{appName}}.</span></div>
+      <div><strong>Votre avis compte</strong><span>Après chaque intervention, vous notez le travail ; nous vous rappelons en cas de mauvaise note.</span></div>
+    </section>
+  </div>
+</main>
+
+{{> footer}}

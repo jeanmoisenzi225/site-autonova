@@ -1,0 +1,51 @@
+{{> head}}
+{{> header}}
+
+<main id="contenu">
+  <div class="page-title">
+    <div class="wrap">
+      <nav class="crumb" aria-label="Fil d'Ariane"><a href="index.html">Accueil</a> › <span>Recrutement</span></nav>
+      <h1>Recrutement</h1>
+      {{#jobs.intro}}<p class="lead">{{jobs.intro}}</p>{{/jobs.intro}}
+    </div>
+  </div>
+
+  <div class="wrap section with-aside" style="align-items: start">
+    <div class="stack" style="gap: 40px">
+      <section class="stack">
+        <h2 class="h2">Postes ouverts</h2>
+        {{#jobs.openings}}<article class="card job"><div><strong>{{title}}</strong>{{#tags.length}}<div class="tags">{{#tags}}<span class="tag">{{text}}</span>{{/tags}}</div>{{/tags.length}}{{#text}}<span style="font-size: 15px; color: var(--text)">{{text}}</span>{{/text}}</div><a class="btn-line" href="#candidature">Postuler</a></article>{{/jobs.openings}}
+        <p class="muted" style="font-size: 14px">{{#jobs.openings.length}}Aucun poste ne vous correspond ? {{/jobs.openings.length}}La candidature spontanée est la bienvenue.</p>
+      </section>
+      {{#jobs.perks.length}}<section class="stack">
+        <h2 class="h2">Pourquoi nous rejoindre</h2>
+        <div class="grid-3">{{#jobs.perks}}<div class="card" style="padding: 18px"><strong style="color: var(--navy)">{{title}}</strong><br><span class="muted" style="font-size: 15px">{{text}}</span></div>{{/jobs.perks}}</div>
+      </section>{{/jobs.perks.length}}
+    </div>
+
+    <section class="card form-card" id="candidature" aria-labelledby="candidature-titre" style="scroll-margin-top: 110px">
+      <div class="stack" style="gap: 4px"><h2 id="candidature-titre" class="h2" style="font-size: 24px">Candidature</h2><span class="muted" style="font-size: 14px">Nous vous rappelons pour en parler.</span></div>
+      <form class="form-grid" data-kind="CANDIDATE" data-success="r-ok">
+        <div class="honeypot" aria-hidden="true"><label for="r-website">Ne pas remplir</label><input id="r-website" name="website" tabindex="-1" autocomplete="off"></div>
+        <label class="field" for="r-name">Nom et prénom *<input id="r-name" name="name" required autocomplete="name"></label>
+        <label class="field" for="r-phone">Téléphone *<input id="r-phone" name="phone" type="tel" inputmode="tel" required autocomplete="tel" placeholder="07 07 07 07 07"></label>
+        <label class="field" for="r-position">Poste visé *<select id="r-position" name="position" required><option value="MECANICIEN">Mécanicien</option><option value="ELECTRICIEN">Électricien auto</option><option value="CARROSSIER">Carrossier peintre</option><option value="SECRETARIAT">Accueil, secrétariat</option><option value="AUTRE">Autre</option></select></label>
+        <label class="field" for="r-experience">Expérience *<select id="r-experience" name="experience" required><option value="DEBUTANT">Débutant ou apprenti</option><option value="MOINS_3">Moins de 3 ans</option><option value="3_10">3 à 10 ans</option><option value="PLUS_10">Plus de 10 ans</option></select></label>
+        <label class="field full" for="r-email">E-mail (facultatif)<input id="r-email" name="email" type="email" autocomplete="email"></label>
+        <label class="field full" for="r-message">Présentez-vous en quelques lignes (facultatif)<textarea id="r-message" name="message" rows="4" maxlength="2000" placeholder="Diplômes, garages précédents, spécialités…"></textarea></label>
+        <p class="note full">Votre CV vous sera demandé par WhatsApp lors de notre appel.</p>
+        <label class="consent full" for="r-consent"><input id="r-consent" name="consent" type="checkbox" required><span>J'accepte qu'Autonova Group conserve ma candidature deux ans au plus pour me recontacter. <a href="confidentialite.html">Politique de confidentialité</a></span></label>
+        <p class="form-error full" role="alert" hidden></p>
+        <div class="form-actions full"><button class="btn btn-lg" type="submit">Envoyer ma candidature</button><span class="muted" style="font-size: 13px">* champs obligatoires</span></div>
+      </form>
+      <div class="form-success" id="r-ok" tabindex="-1" role="status" hidden>
+        <strong>Candidature envoyée</strong>
+        <span>Merci. Autonova Group étudie votre candidature et vous rappelle si un poste correspond à votre profil.</span>
+        <button type="button" data-again>Envoyer une autre candidature</button>
+      </div>
+
+    </section>
+  </div>
+</main>
+
+{{> footer}}

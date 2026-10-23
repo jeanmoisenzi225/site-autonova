@@ -86,7 +86,8 @@ p { margin: 0; }
 
 /* Emplacements de photos (remplacés par <img> quand Autonova fournit les photos) */
 .photo { position: relative; background: repeating-linear-gradient(135deg, #dde3ea 0 14px, #d4dbe4 14px 28px); border-radius: 6px; min-height: 120px; }
-.photo::after { content: attr(data-label); position: absolute; left: 10px; bottom: 10px; background: #fff; color: var(--text); font-size: 12px; font-weight: 600; padding: 4px 8px; border-radius: 3px; }
+.photo[data-label]::after { content: attr(data-label); position: absolute; left: 10px; bottom: 10px; background: #fff; color: var(--text); font-size: 12px; font-weight: 600; padding: 4px 8px; border-radius: 3px; }
+.photo-img { display: block; width: 100%; object-fit: cover; border-radius: 6px; background: #d4dbe4; }
 .photo-dark { background: repeating-linear-gradient(135deg, #2a4864 0 14px, #26425c 14px 28px); }
 .ratio-43 { aspect-ratio: 4 / 3; }
 .ratio-169 { aspect-ratio: 16 / 9; }
@@ -102,7 +103,7 @@ p { margin: 0; }
 
 /* Accueil */
 .hero { position: relative; }
-.hero .photo { position: absolute; inset: 0; border-radius: 0; }
+.hero .photo, .hero .photo-img { position: absolute; inset: 0; border-radius: 0; height: 100%; }
 .hero .photo::after { left: auto; right: var(--gutter); bottom: auto; top: 18px; }
 .hero-inner { position: relative; min-height: 460px; display: flex; align-items: flex-end; padding-bottom: 48px; }
 .hero-card { width: 560px; max-width: 100%; background: #fff; border-radius: 6px; padding: 32px 34px; box-shadow: 0 16px 40px rgba(10, 22, 34, 0.28); display: flex; flex-direction: column; gap: 14px; }
@@ -127,7 +128,7 @@ p { margin: 0; }
 .closed { color: #a33a1a; }
 
 .service-card { display: flex; flex-direction: column; text-decoration: none; overflow: hidden; }
-.service-card .photo { border-radius: 0; height: 150px; }
+.service-card .photo, .service-card .photo-img { border-radius: 0; height: 150px; }
 .service-card .body { padding: 18px 20px; display: flex; flex-direction: column; gap: 6px; }
 .service-card strong { font-family: var(--display); font-size: 21px; color: var(--navy); }
 .service-card span { font-size: 15px; color: var(--text); }
@@ -182,7 +183,7 @@ blockquote { margin: 0; padding-top: 14px; border-top: 1px solid #e3e8ee; font-s
 .figures dt { font-size: 13px; font-weight: 600; color: var(--muted); }
 .figures dd { margin: 0; font-family: var(--display); font-size: 30px; font-weight: 700; color: var(--navy); }
 .person { margin: 0; overflow: hidden; }
-.person .photo { border-radius: 0; }
+.person .photo, .person .photo-img { border-radius: 0; aspect-ratio: 1 / 1; }
 .person figcaption { padding: 14px 16px; display: flex; flex-direction: column; gap: 2px; }
 .person strong { color: var(--navy); }
 .checks { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
@@ -272,7 +273,7 @@ blockquote { margin: 0; padding-top: 14px; border-top: 1px solid #e3e8ee; font-s
   .quick-item { background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 18px; align-items: center; }
   .quick-item:last-child { border-right: 1px solid var(--line); }
   .quick-item span { display: none; }
-  .hero .photo { position: relative; height: 340px; }
+  .hero .photo, .hero .photo-img { position: relative; height: 340px; }
   .hero-inner { min-height: 0; margin-top: -64px; padding-bottom: 0; }
   .hero-card { width: 100%; }
   .home-aside { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
@@ -303,7 +304,7 @@ blockquote { margin: 0; padding-top: 14px; border-top: 1px solid #e3e8ee; font-s
   .section { padding-block: 36px; }
   .page-title h1 { font-size: 29px; }
   .page-title .wrap { padding-top: 18px; padding-bottom: 20px; }
-  .hero .photo { height: 220px; }
+  .hero .photo, .hero .photo-img { height: 220px; }
   .hero-inner { margin-top: -40px; }
   .hero-card { padding: 20px; }
   .hero-card h1 { font-size: 27px; }
@@ -354,7 +355,7 @@ blockquote { margin: 0; padding-top: 14px; border-top: 1px solid #e3e8ee; font-s
   .category-head h2 { font-size: 22px; }
 
   .figures { grid-template-columns: minmax(0, 1fr); }
-  .gallery { grid-template-columns: minmax(0, 1fr); }
+  .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
   .promise { padding: 22px; }
   .job { flex-direction: column; gap: 12px; }
   .job .btn-line { width: 100%; }

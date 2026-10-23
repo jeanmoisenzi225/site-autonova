@@ -1,0 +1,6 @@
+<aside class="card" style="padding: 24px; display: flex; flex-direction: column; gap: 14px; align-self: start">
+  <h3 style="font-size: 20px">Avis de nos clients</h3>
+  {{#average}}<div class="rating"><b>{{average}}</b><span class="stars" aria-hidden="true">★★★★★</span></div>
+  <span class="muted" style="font-size: 14px">sur {{count}} avis laissés dans {{appName}} après une intervention</span>{{/average}}
+  {{#items}}<blockquote>« {{comment}} »<br><span class="stars" style="font-size: 14px" aria-label="Note : {{rating}} sur 5">{{stars}}</span> <span class="muted" style="font-size: 13px">{{firstName}}, {{serviceType}}</span></blockquote>{{/items}}
+</aside>

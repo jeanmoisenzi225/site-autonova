@@ -1,41 +1,39 @@
 # Site vitrine d'Autonova Group
 
-Site statique (HTML, CSS, JavaScript, sans étape de compilation ni ressource extérieure : polices et images sont dans `assets/`) qui présente le garage et relie son formulaire « Être recontacté » à l'appli My Autonova. BACKLOG 53, EPIC-15 (F-15.8).
+Site statique qui présente le garage. Ses contenus (textes, photos, tarifs, postes, actualités, avis) se modifient dans l'appli My Autonova, écran **« Mon site internet »** (administrateur), puis « Publier ». Le design est ici.
 
-Dépôt indépendant de l'appli (dépôt `Mon-Garage-Auto`) : le seul lien est l'adresse de l'API et l'identifiant du garage, dans `assets/config.js`. Côté appli, voir BACKLOG 53 et l'épopée EPIC-15 du dépôt `Mon-Garage-Auto`.
+Dépôt indépendant de l'appli (dépôt `Mon-Garage-Auto`) : le seul lien est l'adresse de l'API et l'identifiant du garage, dans `assets/config.js`. Côté appli, voir BACKLOG 53 et 54 et l'épopée EPIC-15 du dépôt `Mon-Garage-Auto`.
 
-## Pages
+## Comment ça marche
 
-| Fichier | Page |
+1. L'administrateur publie depuis l'appli.
+2. L'appli relance la construction du site (lien de mise à jour enregistré dans « Mon site internet » › « Photos et réglages »).
+3. `build.mjs` lit la version publiée (`GET /api/public/garages/<slug>/site`), télécharge les photos, remplit les modèles de `src/` et écrit le site dans `dist/`.
+
+Tant que rien n'est publié, le site est construit avec `content.example.json`, avec le bandeau « Site en préparation » et la non-indexation par les moteurs de recherche. Si l'appli est injoignable pendant la construction, celle-ci échoue et le site en ligne reste inchangé.
+
+## Fichiers
+
+| Fichier | Rôle |
 |---|---|
-| `index.html` | Accueil |
-| `garage.html` | Le garage (histoire, équipe, atelier) |
-| `prestations.html` | Prestations et tarifs |
-| `recrutement.html` | Postes ouverts et candidature |
-| `contact.html` | Coordonnées et formulaire (onglets client et candidat ; `contact.html#candidature` ouvre l'onglet candidat) |
-| `mentions-legales.html`, `confidentialite.html` | Pages légales (projets à faire valider par Autonova) |
+| `src/*.html` | Modèles des pages (Accueil, Le garage, Prestations et tarifs, Recrutement, Contact, Mentions légales, Politique de confidentialité) |
+| `src/parts/` | Morceaux communs : en-tête, menu, pied de page, bloc des avis |
+| `assets/` | Styles (ordinateur, tablette, téléphone), script (menu, horaires, formulaires), logo, polices, `config.js` |
+| `build.mjs` | Construction (Node 20 ou plus, sans dépendance) |
+| `content.example.json` | Contenus d'exemple |
 
-Mises en page : ordinateur (1 100 px et plus), tablette (700 à 1 099 px), téléphone (moins de 700 px), toutes dans `assets/styles.css`.
-
-## Mettre à jour les contenus
-
-- **Coordonnées** (téléphone, WhatsApp, e-mail, adresse, lien du plan) : uniquement dans `assets/config.js`. Un champ vide s'affiche « [à compléter] ».
-- **Textes** : directement dans les pages ; tout ce qui reste à fournir est entre crochets.
-- **Photos** : remplacer chaque bloc `<div class="photo …" data-label="[Photo : …]">` par une image, par exemple `<img src="assets/photos/atelier.jpg" alt="L'atelier" class="ratio-43" style="width: 100%; object-fit: cover; border-radius: 6px">`. Photos de 1 600 px de large au plus, en JPEG compressé.
-- **Mise en ligne définitive** : retirer le bandeau « Site en préparation » (`draft-banner`) et la balise `<meta name="robots" content="noindex">` de chaque page.
-
-## Formulaire
-
-Envoyé en JSON à `POST <apiUrl>/api/public/garages/<garageSlug>/requests` (catalogue de l'API du dépôt `Mon-Garage-Auto`, `docs/specifications/technique/03-catalogue-api.md`, route 148). La demande arrive dans l'appli, écran « Demandes du site ». Le champ caché `website` piège les robots ; il ne doit pas être retiré. Exige le backend en v0.81.0 ou plus.
+Syntaxe des modèles (type Mustache) : `{{champ}}` texte échappé ; `{{#liste}}…{{/liste}}` répétition ou condition ; `{{^champ}}…{{/champ}}` si vide ; `{{> partie}}` morceau de `src/parts/`. Une rubrique laissée vide dans l'appli n'apparaît pas.
 
 ## Essayer en local
 
 ```bash
-python3 -m http.server 8088
+node build.mjs --exemple          # contenus d'exemple, sans réseau
+node build.mjs                    # contenus publiés dans l'appli
+cd dist && python3 -m http.server 8088
 ```
 
-puis ouvrir http://localhost:8088. Le formulaire écrit alors dans l'appli de production (`apiUrl` de `config.js`).
+Le formulaire « Être recontacté » écrit dans l'appli de production (`apiUrl` de `config.js`).
 
-## Hébergement sur Render
+## Hébergement
 
-Site statique Render, dans le projet « Sites des garages » (séparé de l'appli) : *New* › *Static Site* › ce dépôt, branche `main` ; *Root Directory* vide ; *Build Command* vide ; *Publish Directory* `.`. Gratuit, aucune variable d'environnement.
+Site statique, projet « Sites des garages » : branche `main` ; *Root Directory* vide ; *Build Command* `node build.mjs` ; *Publish Directory* `dist`. Le lien de mise à jour (*Deploy Hook* du site) est à enregistrer dans l'appli, « Mon site internet » › « Photos et réglages ».
