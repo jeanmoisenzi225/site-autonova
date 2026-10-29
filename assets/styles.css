@@ -35,7 +35,6 @@ p { margin: 0; }
 .wrap { width: 100%; max-width: 1264px; margin: 0 auto; padding-left: max(var(--gutter), env(safe-area-inset-left, 0px)); padding-right: max(var(--gutter), env(safe-area-inset-right, 0px)); }
 
 /* Bandeau « version de travail » tant que les contenus ne sont pas fournis */
-.draft-banner { background: var(--orange); color: #1a1007; font-size: 13px; font-weight: 600; text-align: center; padding: 6px 16px; }
 
 /* Barre d'informations */
 .topbar { background: var(--navy-deep); color: #c4d0dc; font-size: 13px; }
@@ -249,6 +248,28 @@ blockquote { margin: 0; padding-top: 14px; border-top: 1px solid #e3e8ee; font-s
 .action-bar { display: none; }
 
 /* ---------- Tablette ---------- */
+/* Notre histoire (2026-10-29) : frise des grandes étapes, fondateur, bandeau final. */
+.timeline { list-style: none; margin: 8px 0 0; padding: 0; position: relative; display: flex; flex-direction: column; gap: 28px; }
+.timeline::before { content: ""; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px; background: var(--line); }
+.timeline-item { position: relative; display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 28px; padding-left: 36px; }
+.timeline-item::before { content: ""; position: absolute; left: 0; top: 6px; width: 16px; height: 16px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 4px #fff; }
+.timeline-period { font-family: var(--display); font-size: 22px; font-weight: 700; color: var(--navy); line-height: 1.2; }
+.timeline-body { display: flex; flex-direction: column; gap: 10px; max-width: 70ch; }
+.timeline-body h3 { font-size: 22px; }
+.timeline-body p { margin: 0; color: var(--text); }
+.timeline-body img { max-width: 520px; border-radius: 6px; }
+.founder { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 36px; align-items: center; background: #fff; border: 1px solid var(--line); border-left: 6px solid var(--orange); border-radius: 6px; padding: 32px 36px; }
+.founder:not(:has(.founder-photo)) { grid-template-columns: minmax(0, 1fr); }
+.founder-photo { width: 220px; aspect-ratio: 1; object-fit: cover; border-radius: 50%; }
+.founder blockquote { margin: 0; font-family: var(--display); font-size: 24px; line-height: 1.35; color: var(--navy); }
+.founder blockquote p { margin: 0 0 8px; }
+.founder-name { margin: 0; display: flex; flex-direction: column; }
+.founder-name span { color: var(--muted); font-size: 15px; }
+.cta-band { background: var(--navy); color: #fff; border-radius: 6px; padding: 32px 36px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+.cta-band h2 { color: #fff; font-size: 26px; max-width: 34ch; }
+.btn-line-light { background: transparent; border-color: #fff; color: #fff; }
+.btn-line-light:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
+
 @media (max-width: 1099px) {
   .topbar .hide-tablet { display: none; }
   .site-header .wrap { min-height: 80px; }
@@ -283,6 +304,7 @@ blockquote { margin: 0; padding-top: 14px; border-top: 1px solid #e3e8ee; font-s
   .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .gallery .wide { grid-column: 1 / -1; }
   .promise { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .timeline-item { grid-template-columns: 130px minmax(0, 1fr); gap: 20px; }
   .contact-aside { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
   .footer-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
   .footer-grid .footer-brand { grid-column: 1 / -1; }
@@ -293,7 +315,6 @@ blockquote { margin: 0; padding-top: 14px; border-top: 1px solid #e3e8ee; font-s
   :root { --gutter: 16px; }
   body { line-height: 1.5; padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px)); }
   .topbar { display: none; }
-  .draft-banner { font-size: 12px; }
   .site-header .wrap { min-height: 68px; }
   .brand img { height: 44px; }
   .header-actions .btn { display: none; }
@@ -357,6 +378,15 @@ blockquote { margin: 0; padding-top: 14px; border-top: 1px solid #e3e8ee; font-s
   .figures { grid-template-columns: minmax(0, 1fr); }
   .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
   .promise { padding: 22px; }
+  .timeline-item { grid-template-columns: minmax(0, 1fr); gap: 4px; padding-left: 30px; }
+  .timeline-period { font-size: 18px; }
+  .timeline-body h3 { font-size: 19px; }
+  .timeline-body img { max-width: 100%; }
+  .founder { grid-template-columns: minmax(0, 1fr); padding: 22px; gap: 18px; }
+  .founder-photo { width: 140px; }
+  .founder blockquote { font-size: 20px; }
+  .cta-band { padding: 22px; }
+  .cta-band h2 { font-size: 22px; }
   .job { flex-direction: column; gap: 12px; }
   .job .btn-line { width: 100%; }
 

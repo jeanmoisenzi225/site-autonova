@@ -1,0 +1,68 @@
+{{> head}}
+{{> header}}
+
+<main id="contenu">
+  <div class="page-title">
+    <div class="wrap">
+      <nav class="crumb" aria-label="Fil d'Ariane"><a href="index.html">Accueil</a> › <span>Notre histoire</span></nav>
+      <h1>Notre histoire</h1>
+      {{#history.intro}}<p class="lead">{{history.intro}}</p>{{/history.intro}}
+    </div>
+  </div>
+
+  <div class="wrap section stack" style="gap: 64px">
+    <section class="grid-2 story" style="gap: 48px; align-items: start">
+      <div class="stack">
+        <span class="eyebrow">{{garageName}}</span>
+        {{#history.storyTitle}}<h2 class="h2">{{history.storyTitle}}</h2>{{/history.storyTitle}}
+        {{#history.storyParagraphs}}<p class="lead">{{text}}</p>{{/history.storyParagraphs}}
+      </div>
+      {{#history.photo}}<img class="photo-img ratio-43" src="{{url}}" alt="{{alt}}">{{/history.photo}}
+      {{^history.photo}}{{#page.draft}}<div class="photo ratio-43" data-label="[Photo : le garage]"></div>{{/page.draft}}{{/history.photo}}
+    </section>
+
+    {{#show.historyTimeline}}
+    <section class="stack" aria-labelledby="etapes">
+      <div class="stack" style="gap: 8px">
+        <span class="eyebrow">Les grandes étapes</span>
+        <h2 class="h2" id="etapes">{{history.timelineTitle}}</h2>
+      </div>
+      <ol class="timeline">
+        {{#history.timeline}}
+        <li class="timeline-item">
+          <span class="timeline-period">{{period}}</span>
+          <div class="timeline-body">
+            <h3>{{title}}</h3>
+            {{#textParagraphs}}<p>{{text}}</p>{{/textParagraphs}}
+            {{#photo}}<img class="photo-img ratio-169" src="{{url}}" alt="{{alt}}" loading="lazy">{{/photo}}
+          </div>
+        </li>
+        {{/history.timeline}}
+      </ol>
+    </section>
+    {{/show.historyTimeline}}
+
+    {{#show.historyFounder}}
+    <section class="founder" aria-label="Le fondateur">
+      {{#history.founderPhoto}}<img class="founder-photo" src="{{url}}" alt="{{alt}}" loading="lazy">{{/history.founderPhoto}}
+      <div class="stack" style="gap: 12px">
+        <span class="eyebrow">Le fondateur</span>
+        {{#history.founderQuoteParagraphs.length}}<blockquote>{{#history.founderQuoteParagraphs}}<p>« {{text}} »</p>{{/history.founderQuoteParagraphs}}</blockquote>{{/history.founderQuoteParagraphs.length}}
+        <p class="founder-name"><strong>{{history.founderName}}</strong>{{#history.founderRole}}<span>{{history.founderRole}}</span>{{/history.founderRole}}</p>
+      </div>
+    </section>
+    {{/show.historyFounder}}
+
+    <section class="cta-band">
+      <div>
+        <h2>{{#history.closing}}{{history.closing}}{{/history.closing}}{{^history.closing}}Confiez-nous votre véhicule.{{/history.closing}}</h2>
+      </div>
+      <div class="hero-actions">
+        <a class="btn" href="contact.html">Être rappelé</a>
+        <a class="btn-line btn-line-light" href="garage.html">Découvrir le garage</a>
+      </div>
+    </section>
+  </div>
+</main>
+
+{{> footer}}

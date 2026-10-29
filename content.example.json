@@ -31,6 +31,24 @@
       "brands": "[Liste des marques prises en charge]",
       "gallery": []
     },
+    "history": {
+      "intro": "Près de 30 ans de passion, d'apprentissage et d'exigence : voici comment est né Autonova Group.",
+      "storyTitle": "Une expertise au service de vos investissements.",
+      "storyText": "Chez Autonova Group, notre niveau d'exigence prend racine dans le parcours et la vision de notre fondateur, M. Adou Franck. Près de 30 ans de passion et de recherche d'excellence ont façonné l'ADN de notre entreprise.\nAutonova, c'est l'alliance de la passion et de l'expertise dans le domaine de la mécanique automobile. L'entreprise est née de la volonté de son fondateur d'importer en Côte d'Ivoire les meilleures technologies et techniques de réparation, aux standards internationaux.",
+      "photo": null,
+      "timelineTitle": "Près de 30 ans de mécanique automobile",
+      "timeline": [
+        { "period": "1997 – 2007", "title": "Les fondations de l'expertise Autonova", "text": "", "photo": null },
+        { "period": "2007 – 2018", "title": "L'aventure entrepreneuriale (AF Garage)", "text": "", "photo": null },
+        { "period": "2018 – 2025", "title": "L'immersion européenne (Toulouse, Lyon)", "text": "", "photo": null },
+        { "period": "Depuis 2025", "title": "Le nouveau standard : Autonova Group", "text": "", "photo": null }
+      ],
+      "founderName": "M. Adou Franck",
+      "founderRole": "Fondateur d'Autonova Group",
+      "founderQuote": "",
+      "founderPhoto": null,
+      "closing": "Aujourd'hui, toute cette expérience est au service de votre véhicule."
+    },
     "services": {
       "intro": "Tarifs indicatifs, main-d'œuvre comprise, pour un véhicule de tourisme. Le prix exact figure sur le devis, que vous signez avant tout travail.",
       "categories": [

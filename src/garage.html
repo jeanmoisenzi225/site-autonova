@@ -18,6 +18,7 @@
         <h2 class="h2">{{garage.historyTitle}}</h2>
         {{#garage.historyParagraphs}}<p class="lead">{{text}}</p>{{/garage.historyParagraphs}}
         {{#garage.figures.length}}<dl class="figures">{{#garage.figures}}<div><dt>{{label}}</dt><dd>{{value}}</dd></div>{{/garage.figures}}</dl>{{/garage.figures.length}}
+        <a class="more" href="histoire.html">Lire toute notre histoire</a>
       </div>
       {{#garage.historyPhoto}}<img class="photo-img ratio-43" src="{{url}}" alt="{{alt}}">{{/garage.historyPhoto}}
       {{^garage.historyPhoto}}{{#page.draft}}<div class="photo ratio-43" data-label="[Photo : façade du garage]"></div>{{/page.draft}}{{/garage.historyPhoto}}
