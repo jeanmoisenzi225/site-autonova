@@ -16,15 +16,17 @@ Dépôt indépendant de l'appli (dépôt `Mon-Garage-Auto`) : le seul lien est l
 
 **Mesure d'audience** (BACKLOG 55) : `assets/site.js` envoie à l'appli chaque page vue et les clics utiles (appeler, WhatsApp, itinéraire, e-mail, espace client, formulaires), sans cookie ni stockage dans le navigateur, et rien si le visiteur a activé « Do Not Track » ou « Global Privacy Control ». Les chiffres se lisent dans l'appli, « Mon site internet » › Audience. Les liens partagés peuvent porter `?utm_source=…&utm_campaign=…` (l'appli fabrique ces liens).
 
+**Notre histoire** (2026-10-29) : page `histoire.html` (récit, grandes étapes, fondateur), contenu `history` modifiable dans l'appli (« Mon site internet » › « Notre histoire », appli v0.86.0) ; rubriques masquables `historyTimeline` et `historyFounder`. Sans photo du récit, la page reprend celle de « Notre histoire » de la page « Le garage ».
+
 **Contenus en ligne** : la construction écrit aussi `dist/contenus.json` (les textes réellement affichés), que l'appli lit pour son aperçu.
 
-Le bandeau « Site en préparation » et la non-indexation par les moteurs de recherche restent tant qu'un texte entre crochets (« [Prénom Nom] ») reste à compléter. Si l'appli est injoignable pendant la construction, celle-ci échoue et le site en ligne reste inchangé.
+La non-indexation par les moteurs de recherche reste tant qu'un texte entre crochets (« [Prénom Nom] ») reste à compléter (le bandeau « Site en préparation » a été retiré le 2026-10-29). Si l'appli est injoignable pendant la construction, celle-ci échoue et le site en ligne reste inchangé.
 
 ## Fichiers
 
 | Fichier | Rôle |
 |---|---|
-| `src/*.html` | Modèles des pages (Accueil, Le garage, Prestations et tarifs, Recrutement, Contact, Mentions légales, Politique de confidentialité) |
+| `src/*.html` | Modèles des pages (Accueil, Le garage, Notre histoire, Prestations et tarifs, Recrutement, Contact, Mentions légales, Politique de confidentialité) |
 | `src/parts/` | Morceaux communs : en-tête, menu, pied de page, bloc des avis |
 | `assets/` | Styles (ordinateur, tablette, téléphone), script (menu, horaires, formulaires), logo, polices, `config.js` |
 | `build.mjs` | Construction (Node 20 ou plus, sans dépendance) |

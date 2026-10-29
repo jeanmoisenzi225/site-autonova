@@ -183,6 +183,16 @@ function viewModel(site, photosOk) {
       equipment: (c.garage.equipment || []).filter(Boolean).map((text) => ({ text })),
       gallery: photos(c.garage.gallery, "L'atelier").map((p, i) => ({ ...p, wide: i === 0 })),
     },
+    // Notre histoire (2026-10-29) : photo du récit, à défaut celle de
+    // l'histoire de la page « Le garage ».
+    history: {
+      ...c.history,
+      storyParagraphs: paragraphs(c.history.storyText),
+      photo: photo(c.history.photo || c.garage.historyPhoto, `L'histoire de ${site.garage?.name || "du garage"}`),
+      timeline: (c.history.timeline || []).filter((t) => t.title || t.period).map((t) => ({ ...t, textParagraphs: paragraphs(t.text), photo: photo(t.photo, t.title) })),
+      founderPhoto: photo(c.history.founderPhoto, c.history.founderName),
+      founderQuoteParagraphs: paragraphs(c.history.founderQuote),
+    },
     services: { intro: c.services.intro, categories },
     jobs: {
       intro: c.jobs.intro,
@@ -201,6 +211,8 @@ function viewModel(site, photosOk) {
       garagePromises: !hidden.garagePromises,
       jobsOpenings: !hidden.jobsOpenings,
       jobsPerks: !hidden.jobsPerks,
+      historyTimeline: !hidden.historyTimeline && (c.history.timeline || []).some((t) => t.title || t.period),
+      historyFounder: !hidden.historyFounder && Boolean(c.history.founderName),
     },
     reviews: !hidden.homeReviews && r.show && (r.count || reviewItems.length)
       ? { average: r.average != null ? String(r.average).replace(".", ",") : "", count: r.count, items: reviewItems }
@@ -211,12 +223,14 @@ function viewModel(site, photosOk) {
 /* ---------- Construction ---------- */
 const site = await loadSite();
 const content = site.content;
-// Bandeau « Site en préparation » et non-indexation tant qu'il reste des
-// textes à compléter entre crochets (ex. « [Prénom Nom] »).
+// Non-indexation (et emplacements de photos marqués) tant qu'il reste des
+// textes à compléter entre crochets (ex. « [Prénom Nom] »). Le bandeau
+// « Site en préparation » a été retiré le 2026-10-29 à la demande du garage.
 const stillDraft = /\[[^\]\n]{2,}\]/.test(JSON.stringify(content));
 const photoIds = [
   ...content.home.heroPhotos, ...content.home.welcomePhotos, content.garage.historyPhoto,
   ...content.garage.team.map((t) => t.photo), ...content.garage.gallery, ...content.services.categories.map((c) => c.photo),
+  content.history.photo, content.history.founderPhoto, ...content.history.timeline.map((t) => t.photo),
 ].filter(Boolean);
 
 await rm(DIST, { recursive: true, force: true });
@@ -235,6 +249,7 @@ for (const file of await readdir(path.join(SRC, "parts"))) parts[file.replace(/\
 const PAGES = {
   "index.html": { nav: "home", title: `${view.garageName} · Garage automobile`, description: content.home.intro || content.home.title },
   "garage.html": { nav: "garage", title: `Le garage · ${view.garageName}`, description: content.garage.intro },
+  "histoire.html": { nav: "history", title: `Notre histoire · ${view.garageName}`, description: content.history.intro || content.history.storyTitle },
   "prestations.html": { nav: "services", title: `Prestations et tarifs · ${view.garageName}`, description: content.services.intro },
   "recrutement.html": { nav: "jobs", title: `Recrutement · ${view.garageName}`, description: content.jobs.intro },
   "contact.html": { nav: "contact", title: `Contact · ${view.garageName}`, description: `Contacter ${view.garageName} : téléphone, WhatsApp, adresse, horaires, ou demande de rappel.` },
