@@ -18,6 +18,8 @@ Dépôt indépendant de l'appli (dépôt `Mon-Garage-Auto`) : le seul lien est l
 
 **Notre histoire** (2026-10-29) : page `histoire.html` (récit, grandes étapes, fondateur), contenu `history` modifiable dans l'appli (« Mon site internet » › « Notre histoire », appli v0.86.0) ; rubriques masquables `historyTimeline` et `historyFounder`. Sans photo du récit, la page reprend celle de « Notre histoire » de la page « Le garage ».
 
+**Horaires et plan** (2026-11-05, BACKLOG 63 de l'appli) : les horaires d'ouverture sont réglés dans l'appli (Profil › Mon garage › « Horaires d'ouverture ») et repris partout sur le site (bandeau du haut, encart « Ouvert / Fermé », horaires de l'accueil, page Contact, pied de page). Le plan d'accès (accueil « Nous trouver » et page Contact) est l'image choisie dans l'appli (« Mon site internet » › Coordonnées › « Image du plan »), sinon un plan dessiné à la construction à partir de la position du garage : tuiles OpenStreetMap téléchargées dans `dist/assets/plan/` (aucun appel extérieur depuis le navigateur du visiteur), crédit « © les contributeurs d'OpenStreetMap » affiché.
+
 **Contenus en ligne** : la construction écrit aussi `dist/contenus.json` (les textes réellement affichés), que l'appli lit pour son aperçu.
 
 La non-indexation par les moteurs de recherche reste tant qu'un texte entre crochets (« [Prénom Nom] ») reste à compléter (le bandeau « Site en préparation » a été retiré le 2026-10-29). Si l'appli est injoignable pendant la construction, celle-ci échoue et le site en ligne reste inchangé.
