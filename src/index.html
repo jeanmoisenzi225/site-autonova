@@ -18,7 +18,7 @@
   <div class="wrap">
     <div class="card open-status" data-open-status>
       <span class="open-dot" aria-hidden="true"></span>
-      <span style="flex: 1"><span data-open-label><strong>Horaires</strong></span><br><span class="muted" style="font-size: 14px">Lundi au samedi, 8 h – 18 h</span></span>
+      <span style="flex: 1"><span data-open-label><strong>Horaires</strong></span><br><span class="muted" style="font-size: 14px">{{hours.summary}}</span></span>
       <a data-link="map" style="font-weight: 700; font-size: 15px">Itinéraire</a>
     </div>
   </div>
@@ -48,12 +48,11 @@
         <div class="card home-hours" style="padding: 24px">
           <h3 style="font-size: 20px; margin-bottom: 12px">Horaires d'ouverture</h3>
           <table class="hours">
-            <tr><td>Lundi au vendredi</td><td>8 h – 18 h</td></tr>
-            <tr><td>Samedi</td><td>8 h – 18 h</td></tr>
-            <tr><td>Dimanche</td><td class="closed">Fermé</td></tr>
+            {{#hours.rows}}<tr><td>{{label}}</td><td{{#closed}} class="closed"{{/closed}}>{{value}}</td></tr>{{/hours.rows}}
           </table>
         </div>
-        <div class="card" style="padding: 20px 24px; display: flex; flex-direction: column; gap: 6px">
+        <div class="card home-find" style="padding: 20px 24px; display: flex; flex-direction: column; gap: 6px">
+          {{> map}}
           <h3 style="font-size: 20px">Nous trouver</h3>
           <span data-fill="address"></span>
           <a data-link="tel" data-fill="phone" style="font-weight: 600; text-decoration: none"></a>

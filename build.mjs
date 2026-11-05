@@ -122,6 +122,81 @@ function render(template, stack) {
   return out;
 }
 
+/* ---------- Horaires d'ouverture (réglés dans l'appli, BACKLOG 63) ----------
+   7 jours, index 0 = dimanche, { open: "08:30", close: "18:30" } ou null. */
+const WEEKDAYS = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+const WEEK_ORDER = [1, 2, 3, 4, 5, 6, 0];
+const STANDARD_DAY = { open: "08:00", close: "18:00" };
+const DEFAULT_HOURS = [null, STANDARD_DAY, STANDARD_DAY, STANDARD_DAY, STANDARD_DAY, STANDARD_DAY, STANDARD_DAY];
+const formatHour = (hhmm) => { const [h, m] = hhmm.split(":"); return `${Number(h)} h${m === "00" ? "" : ` ${m}`}`; };
+const sameHours = (a, b) => (a === null ? b === null : b !== null && a.open === b.open && a.close === b.close);
+
+function openingHoursView(raw) {
+  const hours = Array.isArray(raw) && raw.length === 7 ? raw : DEFAULT_HOURS;
+  const groups = [];
+  for (const d of WEEK_ORDER) {
+    const last = groups[groups.length - 1];
+    if (last && sameHours(last.h, hours[d])) last.to = d;
+    else groups.push({ from: d, to: d, h: hours[d] });
+  }
+  const rows = groups.map((g) => ({
+    label: g.from === g.to ? WEEKDAYS[g.from] : `${WEEKDAYS[g.from]} au ${WEEKDAYS[g.to].toLowerCase()}`,
+    value: g.h ? `${formatHour(g.h.open)} – ${formatHour(g.h.close)}` : "Fermé",
+    closed: !g.h,
+  }));
+  const open = rows.filter((r) => !r.closed);
+  const closed = rows.filter((r) => r.closed);
+  return {
+    raw: hours,
+    rows,
+    // Bandeau du haut et encart de l'accueil : jours ouverts seulement.
+    summary: open.map((r) => `${r.label}, ${r.value}`).join(" · "),
+    closedSummary: closed.length ? `Fermé le ${closed.map((r) => r.label.toLowerCase()).join(" et le ")}` : "",
+    lines: rows.map((r) => ({ text: `${r.label} : ${r.closed ? "fermé" : r.value}` })),
+  };
+}
+
+/* ---------- Plan d'accès ----------
+   Image choisie dans l'appli (« Coordonnées » › « Image du plan »), sinon un
+   plan dessiné à partir de la position du garage : tuiles OpenStreetMap
+   téléchargées à la construction (le visiteur ne contacte aucun service
+   extérieur), posées en grille, le garage au centre. */
+const MAP_ZOOM = 16;
+async function buildMap(site, mapPhoto) {
+  if (mapPhoto) return { photo: mapPhoto };
+  const lat = site.garage?.latitude;
+  const lon = site.garage?.longitude;
+  if (typeof lat !== "number" || typeof lon !== "number") return null;
+  const n = 2 ** MAP_ZOOM;
+  const xt = ((lon + 180) / 360) * n;
+  const rad = (lat * Math.PI) / 180;
+  const yt = ((1 - Math.log(Math.tan(rad) + 1 / Math.cos(rad)) / Math.PI) / 2) * n;
+  const x0 = Math.floor(xt) - 2;
+  const y0 = Math.floor(yt) - 1;
+  await mkdir(path.join(DIST, "assets/plan"), { recursive: true });
+  const tiles = [];
+  try {
+    for (let dy = 0; dy < 3; dy++) {
+      for (let dx = 0; dx < 4; dx++) {
+        const x = x0 + dx;
+        const y = y0 + dy;
+        const res = await fetch(`https://tile.openstreetmap.org/${MAP_ZOOM}/${x}/${y}.png`, {
+          headers: { "User-Agent": `site-${config.garageSlug}/1.0 (construction du site du garage)` },
+          signal: AbortSignal.timeout(20_000),
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        const file = `assets/plan/${MAP_ZOOM}-${x}-${y}.png`;
+        await writeFile(path.join(DIST, file), Buffer.from(await res.arrayBuffer()));
+        tiles.push({ src: file, left: dx * 256, top: dy * 256 });
+      }
+    }
+  } catch (err) {
+    console.warn(`Plan non dessiné (${err.message}) : emplacement laissé sans plan.`);
+    return null;
+  }
+  return { tiles, px: Math.round((xt - x0) * 256), py: Math.round((yt - y0) * 256) };
+}
+
 /* ---------- Préparation des données pour les pages ---------- */
 const MONTHS = ["janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."];
 const paragraphs = (text) => String(text || "").split(/\n+/).map((t) => t.trim()).filter(Boolean).map((t) => ({ text: t }));
@@ -143,7 +218,7 @@ async function downloadPhotos(ids) {
   return ok;
 }
 
-function viewModel(site, photosOk) {
+function viewModel(site, photosOk, map) {
   const c = site.content;
   const photo = (id, alt = "") => (id && photosOk.has(id) ? { url: `photos/${id}.jpg`, alt } : null);
   const photos = (ids, alt) => (ids || []).map((id) => photo(id, alt)).filter(Boolean);
@@ -168,6 +243,8 @@ function viewModel(site, photosOk) {
     garageName: site.garage?.name || "",
     appName: site.garage?.appName || "",
     footerTagline: c.footer?.tagline || "",
+    hours: openingHoursView(site.garage?.openingHours),
+    map: map && map.photo ? (photo(map.photo, "Plan d'accès au garage") ? { photo: photo(map.photo, "Plan d'accès au garage") } : null) : map,
     home: {
       ...c.home,
       heroPhoto: photos(c.home.heroPhotos, "L'atelier")[0] || null,
@@ -231,17 +308,19 @@ const photoIds = [
   ...content.home.heroPhotos, ...content.home.welcomePhotos, content.garage.historyPhoto,
   ...content.garage.team.map((t) => t.photo), ...content.garage.gallery, ...content.services.categories.map((c) => c.photo),
   content.history.photo, content.history.founderPhoto, ...content.history.timeline.map((t) => t.photo),
+  content.contact?.mapPhoto,
 ].filter(Boolean);
 
 await rm(DIST, { recursive: true, force: true });
 await mkdir(DIST, { recursive: true });
 const photosOk = site.source === "appli" ? await downloadPhotos([...new Set(photoIds)]) : new Set();
-const view = viewModel(site, photosOk);
+const map = site.source === "appli" ? await buildMap(site, content.contact?.mapPhoto && photosOk.has(content.contact.mapPhoto) ? content.contact.mapPhoto : null) : null;
+const view = viewModel(site, photosOk, map);
 
 // Coordonnées : reprises dans assets/config.js, lu par les pages.
 await cp(path.join(ROOT, "assets"), path.join(DIST, "assets"), { recursive: true });
 const contact = content.contact || {};
-const runtimeConfig = { ...config, phone: contact.phone || "", whatsapp: contact.whatsapp || "", email: contact.email || "", address: contact.address || "", mapUrl: contact.mapUrl || "" };
+const runtimeConfig = { ...config, phone: contact.phone || "", whatsapp: contact.whatsapp || "", email: contact.email || "", address: contact.address || "", mapUrl: contact.mapUrl || "", openingHours: view.hours.raw };
 await writeFile(path.join(DIST, "assets/config.js"), `window.SITE_CONFIG = ${JSON.stringify(runtimeConfig, null, 2)};\n`);
 
 const parts = {};

@@ -73,19 +73,31 @@
     if (href && action) el.addEventListener("click", function () { measure("action", action); });
   });
 
-  /* ---------- Ouvert / fermé (Abidjan = UTC toute l'année) ---------- */
+  /* ---------- Ouvert / fermé (Abidjan = UTC toute l'année) ----------
+     Horaires réglés dans l'appli (config.openingHours, écrit à la
+     construction) : 7 jours, dimanche en premier, null = fermé. */
   var status = document.querySelector("[data-open-status]");
-  if (status) {
+  var hours = (window.SITE_CONFIG && window.SITE_CONFIG.openingHours) || null;
+  if (status && hours && hours.length === 7) {
+    var DAYS = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"];
+    var toMin = function (t) { return Number(t.slice(0, 2)) * 60 + Number(t.slice(3, 5)); };
+    var fmt = function (t) { var m = t.slice(3, 5); return Number(t.slice(0, 2)) + " h" + (m === "00" ? "" : " " + m); };
     var now = new Date();
     var day = now.getUTCDay();
     var minutes = now.getUTCHours() * 60 + now.getUTCMinutes();
-    var open = day !== 0 && minutes >= 8 * 60 && minutes < 18 * 60;
+    var today = hours[day];
     var label = status.querySelector("[data-open-label]");
     var dot = status.querySelector(".open-dot");
-    if (open) {
-      label.innerHTML = "<strong>Ouvert</strong> · ferme à 18 h";
+    if (today && minutes >= toMin(today.open) && minutes < toMin(today.close)) {
+      label.innerHTML = "<strong>Ouvert</strong> · ferme à " + fmt(today.close);
     } else {
-      var next = day === 6 && minutes >= 18 * 60 ? "lundi à 8 h" : day === 0 ? "demain à 8 h" : minutes < 8 * 60 ? "à 8 h" : "demain à 8 h";
+      // Prochaine ouverture : plus tard aujourd'hui, demain, ou le prochain jour ouvert.
+      var next = "";
+      if (today && minutes < toMin(today.open)) next = "à " + fmt(today.open);
+      for (var i = 1; !next && i <= 7; i++) {
+        var d = hours[(day + i) % 7];
+        if (d) next = (i === 1 ? "demain" : DAYS[(day + i) % 7]) + " à " + fmt(d.open);
+      }
       label.innerHTML = "<strong>Fermé</strong> · ouvre " + next;
       if (dot) dot.classList.add("is-closed");
     }

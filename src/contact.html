@@ -71,11 +71,12 @@
           <dt>Téléphone</dt><dd><a data-link="tel" data-fill="phone"></a></dd>
           <dt>WhatsApp</dt><dd><a data-link="whatsapp" data-fill="whatsapp"></a></dd>
           <dt>E-mail</dt><dd><a data-link="mail" data-fill="email"></a></dd>
-          <dt>Horaires</dt><dd>Lundi au samedi, 8 h – 18 h<br>Fermé le dimanche</dd>
+          <dt>Horaires</dt><dd>{{#hours.rows}}{{^closed}}{{label}}, {{value}}<br>{{/closed}}{{/hours.rows}}{{hours.closedSummary}}</dd>
         </dl>
       </div>
       <div class="card" style="overflow: hidden">
-        <div class="photo" style="height: 240px; border-radius: 0" role="img" aria-label="Plan d'accès (à venir)" data-label="[Plan d'accès]"></div>
+        {{> map}}
+        {{^map}}{{#page.draft}}<div class="photo" style="height: 240px; border-radius: 0" role="img" aria-label="Plan d'accès (à venir)" data-label="[Plan d'accès]"></div>{{/page.draft}}{{/map}}
         <div style="padding: 14px 20px"><a data-link="map" style="font-weight: 700">Ouvrir l'itinéraire</a></div>
       </div>
     </aside>
